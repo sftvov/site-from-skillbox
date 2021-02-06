@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Владимир Кочнев — frontend-разработчик и веб-верстальщик</title>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script>
+			$(function () {
+				$('.order').on('click', function () {
+					$('.popup-container').css('display', 'flex');
+				});
+
+				$('.popup-container').on('click', function (event) {
+					if (event.target === this) {
+						$('.popup-container').css('display', 'none');
+					}
+				});
+
+				$('.send-order').on('click', function () {
+					let name = $('#name').val();
+					let email = $('#email').val();
+
+					if (name.length == 0) {
+						alert('Укажите имя');
+						return;
+					}
+
+					if (email.length == 0) {
+						alert('Укажите e-mail');
+						return;
+					}
+
+					$.post('/api.php', { name: name, email: email }, function (response) {
+						if (response == 1) {
+							$('.popup-container').css('display', 'none');
+							$('#name').val('');
+							$('#email').val('');
+						} else {
+							alert('Что-то пошло не так :(');
+						}
+					});
+				});
+			});
+		</script>
+		<link rel="preconnect" href="https://fonts.gstatic.com" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: 'Roboto', sans-serif;
+			}
+			header {
+				height: 115px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.fixed-container {
+				width: 1220px;
+				margin: 0 auto;
+				padding: 0 20px;
+			}
+			nav a {
+				margin-right: 20px;
+				color: black;
+				text-decoration: none;
+				font-size: 18px;
+			}
+			nav a:hover {
+				text-decoration: underline;
+			}
+			.header-contacts {
+				font-size: 18px;
+				display: flex;
+				justify-content: flex-end;
+				align-items: center;
+			}
+			.phone {
+				margin-right: 30px;
+			}
+			.light-button {
+				background-color: white;
+				border: 1px solid gray;
+				font-size: 13px;
+				padding: 12px 45px;
+				border-radius: 10px;
+				cursor: pointer;
+				outline: none;
+			}
+			.blue-button {
+				background: #3f2aff;
+				color: #fff;
+				border: 1px solid;
+				border-radius: 10px;
+				font-size: 13px;
+				padding: 12px 45px;
+				cursor: pointer;
+				margin-right: 196px;
+			}
+			.first-block {
+				display: flex;
+				height: 500px;
+				background-image: url('img/man.png');
+				background-repeat: no-repeat;
+				background-position: center right;
+				background-size: contain;
+			}
+
+			.main {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: flex-start;
+			}
+
+			h1 {
+				font-weight: 600;
+				font-size: 40px;
+				margin-bottom: 24px;
+				margin-right: 75px;
+			}
+
+			.main-text {
+				margin: 0;
+				margin-bottom: 54px;
+				padding-right: 60px;
+			}
+
+			/* Block 3 */
+			h2 {
+				font-size: 36px;
+			}
+
+			.services {
+				margin-bottom: 60px;
+			}
+
+			.services-container {
+				display: flex;
+				justify-content: space-between;
+				margin: 40px 0;
+			}
+			.services-container img {
+				width: 115px;
+				margin-bottom: 30px;
+			}
+
+			.services-container > div {
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+				align-items: flex-start;
+				font-size: 14px;
+			}
+
+			.portfolio-section {
+				margin-top: 100px;
+				margin-bottom: 60px;
+			}
+
+			.porfolio-container {
+				display: flex;
+				justify-content: space-between;
+				margin: 40px 0;
+			}
+
+			.porfolio-container img {
+				width: 300px;
+				margin-bottom: 30px;
+			}
+
+			.porfolio-container > div {
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+				align-items: flex-start;
+				font-size: 14px;
+			}
+
+			.prices-bg {
+				background-color: blue;
+				color: white;
+			}
+
+			.prices-container {
+				height: 415px;
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				justify-content: space-evenly;
+			}
+
+			.popup-container {
+				display: none;
+				position: fixed;
+				background-color: #000000cf;
+				width: 100%;
+				height: 100%;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.popup {
+				background-color: white;
+				border: 1px solid gray;
+				border-radius: 3px;
+				padding: 30px;
+			}
+
+			.popup h3 {
+				margin-top: 0;
+			}
+
+			.popup-form {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.popup-form label {
+				margin-bottom: 15px;
+			}
+			.footer-container {
+				margin-top: 90px;
+				margin-bottom: 100px;
+				display: flex;
+				justify-content: space-between;
+			}
+
+			.footer-nav {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.footer-nav a {
+				margin-right: 20px;
+				text-decoration: none;
+				color: black;
+				font-size: 18px;
+			}
+
+			.footer-container a:not(:last-child) {
+				margin-bottom: 20px;
+			}
+
+			.contacts {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.social {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.social-div {
+				margin-top: 41px;
+				text-align: center;
+			}
+
+			.social-div > a:not(:first-child) {
+				margin-left: 20px;
+			}
+
+			.social-div > a {
+				margin-right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="popup-container">
+			<div class="popup">
+				<h3>Оставьте заявку:</h3>
+				<div class="popup-form">
+					<label>
+						Ваше имя:
+						<input id="name" type="text" />
+					</label>
+					<label>
+						Ваш e-mail:
+						<input id="email" type="email" />
+					</label>
+				</div>
+				<button class="light-button send-order">Отправить</button>
+			</div>
+		</div>
+		<header class="fixed-container">
+			<nav>
+				<a href="#">Услуги</a>
+				<a href="#">Портфолио</a>
+				<a href="#">Стоимость</a>
+			</nav>
+			<div class="header-contacts">
+				<span class="phone">+7 999 999-99-99</span>
+				<button class="order light-button">Заказать звонок</button>
+			</div>
+		</header>
+		<section class="fixed-container first-block">
+			<div class="main">
+				<h1>Владимир Кочнев</h1>
+				<p class="main-text">Frontend-разработчик и веб-верстальщик</p>
+				<button class="order blue-button">Узнать больше</button>
+			</div>
+		</section>
+		<section class="services fixed-container">
+			<h2>Что я делаю</h2>
+			<div class="services-container">
+				<div>
+					<img src="/img/1.png" />
+					Вёрстка лэндинг-страниц<br />и сайтов любой сложности
+				</div>
+				<div>
+					<img src="/img/2.png" />
+					Адаптивная вёрстка под<br />все браузеры и устройства
+				</div>
+				<div>
+					<img src="/img/3.png" />
+					Frontend-разработка<br />и программирование
+				</div>
+				<div>
+					<img src="/img/4.png" />
+					Исправление и доработка<br />существующей вёрстки
+				</div>
+			</div>
+			<button class="light-button order">Узнать стоимость</button>
+			<section class="services fixed-container portfolio-section">
+				<h2 class="portfolio-title">Примеры работ</h2>
+				<div class="porfolio-container">
+					<div>
+						<img src="img/e1.png" />
+						Сайт психолога Веры Антоновой
+					</div>
+					<div>
+						<img src="img/e2.png" />
+						Сайт магазина детской одежды
+					</div>
+					<div>
+						<img src="img/e3.png" />
+						Сайт магазина «Рыболов»
+					</div>
+				</div>
+				<button class="light-button light-button-2">Заказать проект</button>
+			</section>
+		</section>
+		<section class="prices-bg">
+			<div class="prices-container fixed-container">
+				<h2>
+					Адаптивная вёрстка под все<br />
+					устройства и браузеры<br />
+					от 1000 Р всего за 4 часа.*
+				</h2>
+				<span
+					>* Срок и стоимость могут отличаться от заявленных и рассчитываются<br />индивидуально
+					в зависимости от сложности задач.</span
+				>
+			</div>
+		</section>
+		<footer class="footer fixed-container">
+			<div class="footer-container">
+				<div class="footer-nav">
+					<a href="#"> Услуги </a>
+					<a href="#"> Портфолио </a>
+					<a href="#"> Стоимость </a>
+				</div>
+				<div class="contacts">
+					<a>kochnev.vladimir@mail.ru</a>
+					<a>+7 (923) 702-**-**</a>
+				</div>
+				<div class="social">
+					<button class="order light-button">Заказать звонок</button>
+					<div class="social-div">
+						<a href="#"><img src="img/fb.png" alt="" class="social-img" /></a>
+						<a href="#"><img src="img/vk.png" alt="" class="social-img" /></a>
+						<a href="#"><img src="img/yout.png" alt="" class="social-img" /></a>
+						<a href="#"
+							><img src="img/teleg.png" alt="" class="social-img"
+						/></a>
+						<a href="#"
+							><img src="img/instagram.png" alt="" class="social-img"
+						/></a>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>
